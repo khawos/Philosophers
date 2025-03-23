@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/23 05:11:13 by amedenec          #+#    #+#             */
-/*   Updated: 2025/03/23 08:15:14 by amedenec         ###   ########.fr       */
+/*   Created: 2025/03/23 06:35:16 by amedenec          #+#    #+#             */
+/*   Updated: 2025/03/23 07:43:44 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
-
-int	main(int argc, char **argv)
+int	ft_atoi(const char *str)
 {
-	t_data	data;
+	int	result;
+	int	sign;
 
-	(void)argv;
-	if (argc < 5 || argc > 6)
-		return (write(2, "Please, enter the right amount of arguments\n", 45));
-	if (parsing(&data, argv))
-		return (1);
-	return (0);
+	result = 0;
+	while ((*str == ' ') || (*str >= 9 && *str <= 13))
+		str++;
+	sign = (1 - 2 * (*str == '-'));
+	str += (*str == '-' || *str == '+');
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + (*str - '0');
+		str++;
+	}
+	return (result * sign);
 }
+

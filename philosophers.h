@@ -27,7 +27,10 @@ typedef struct	s_data
 	t_data			*data;
 }t_philo;*/
 
-void	parsing(t_data *data);
+int		parsing(t_data *data, char **argv);
 void	init(t_data *data);
+
+// utils
+int		ft_atoi(const char *str);
 
 #endif

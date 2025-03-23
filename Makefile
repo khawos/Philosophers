@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amedenec <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/23 05:10:58 by amedenec          #+#    #+#              #
-#    Updated: 2025/03/23 05:10:59 by amedenec         ###   ########.fr        #
+#    Updated: 2025/03/23 07:00:47 by amedenec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ OBJ_DIR = ./obj
 
 SRC = main.c \
       parsing.c \
-      init.c
+      init.c \
+	  utils.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
