@@ -6,7 +6,7 @@
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 05:11:13 by amedenec          #+#    #+#             */
-/*   Updated: 2025/03/24 07:07:18 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/09 05:09:56 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv)
 	if (parsing(&data, argv))
 		return (1);
 	init(&data, argv);
+	init_philo(&data);
 	start_run(&data);
 	return (0);
 }

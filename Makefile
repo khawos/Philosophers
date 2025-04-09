@@ -6,11 +6,11 @@
 #    By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/23 05:10:58 by amedenec          #+#    #+#              #
-#    Updated: 2025/03/24 07:13:52 by amedenec         ###   ########.fr        #
+#    Updated: 2025/04/09 05:27:27 by amedenec         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3 -I.

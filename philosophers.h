@@ -6,6 +6,8 @@
 # include <unistd.h>
 # define MAX_PHILO 200
 
+typedef struct s_data t_data;
+
 typedef struct	s_philo
 {
 	pthread_t 		thread;
@@ -14,20 +16,21 @@ typedef struct	s_philo
 	size_t			time_to_die;		
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	pthread_mutex_t *left_fork;
-	pthread_mutex_t *right_fork;
-	
+	t_data			*data;
 }	t_philo;
 
 typedef struct	s_data
 {
 	int				is_dead;
+	int				num_philos;
+	pthread_mutex_t *forks;
 	t_philo			philos[MAX_PHILO];	
 }	t_data;
 
 // main
 int		parsing(t_data *data, char **argv);
 void	init(t_data *data, char **argv);
+void	init_philo(t_data *data);
 void	start_run(t_data *data);
 
 // utils
