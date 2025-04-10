@@ -6,7 +6,7 @@
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 07:04:37 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/09 06:26:59 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/10 04:01:09 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,33 @@ void	init(t_data *data, char **argv)
 		data->philos[d].num_philos = i;
 		data->philos[d].time_to_die = die;
 		data->philos[d].time_to_eat = eat;
-		data->philos[d++].time_to_sleep = sleep;
+		data->philos[d].time_to_sleep = sleep;
+		data->philos[d++].data = data;
 	}
 }
 
 void	init_philo(t_data *data)
 {
+	t_monitoring *monitoring;
 	int	i;
 
+	monitoring = NULL;
 	i = 0;
+	monitoring = malloc(sizeof(t_monitoring));
+	if (!monitoring)
+	{
+		// TODO
+	}
+	pthread_mutex_init(&data->stdin_mutex, NULL);
 	data->forks = malloc((sizeof(pthread_mutex_t)) * data->num_philos);
+	if (!data->forks)
+	{
+		// TODO
+	}
+	gettimeofday(&data->start_time, NULL); // sauvegarde le temps
 	while (i < data->num_philos)
 	{
 		pthread_mutex_init(&data->forks[i++], NULL);
 	}
+	data->monitoring = monitoring;
 }

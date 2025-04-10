@@ -4,9 +4,17 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/time.h>
 # define MAX_PHILO 200
 
 typedef struct s_data t_data;
+//typedef struct s_monitoring t_monitoring;
+
+typedef struct	s_monitoring
+{
+	pthread_t		thread;
+}	t_monitoring;
+
 
 typedef struct	s_philo
 {
@@ -21,10 +29,13 @@ typedef struct	s_philo
 
 typedef struct	s_data
 {
+	struct timeval	start_time; // ATTENTION
 	int				is_dead;
 	int				num_philos;
+	pthread_mutex_t	stdin_mutex;
 	pthread_mutex_t *forks;
-	t_philo			philos[MAX_PHILO];	
+	t_philo			philos[MAX_PHILO];
+	t_monitoring	*monitoring;
 }	t_data;
 
 // main
