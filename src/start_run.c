@@ -6,7 +6,7 @@
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 04:36:04 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/10 03:51:38 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/10 04:31:04 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	print_time(t_philo *philo)
 
 void	eat_philo(t_philo *philo)
 {
-	usleep(1000000);
+	gettimeofday(&philo->last_meal, NULL);
+	usleep(philo->time_to_eat * 1000);
 	print_time(philo);
 }
 
@@ -45,14 +46,59 @@ void	*routine(void *philos)
 	return (NULL);
 }
 
-void	*routine_monitoring(void *data)
+
+void	print_death(t_data *data, int id, long current)
 {
-	t_data *data_monitor;
-	
-	data_monitor = (t_data *)data;
-	pthread_mutex_lock(&data_monitor->stdin_mutex);
-	printf("Bonjour, je monitor\n");
-	pthread_mutex_unlock(&data_monitor->stdin_mutex);
+	long	start;
+
+	start = data->start_time.tv_sec * 1000
+		+ data->start_time.tv_usec / 1000;
+	pthread_mutex_lock(&data->stdin_mutex);
+	printf("%ld %d died\n", current - start, id);
+	pthread_mutex_unlock(&data->stdin_mutex);
+}
+
+int	check_death(t_data *data, int i)
+{
+	struct timeval	now;
+	size_t			last;
+	size_t			current;
+	size_t			elapsed;
+
+	gettimeofday(&now, NULL);
+	last = data->philos[i].last_meal.tv_sec * 1000
+		+ data->philos[i].last_meal.tv_usec / 1000;
+	current = now.tv_sec * 1000 + now.tv_usec / 1000;
+	elapsed = current - last;
+	if (elapsed > data->philos[i].time_to_die)
+	{
+		print_death(data, data->philos[i].id, current);
+		return (1);
+	}
+	return (0);
+}
+
+void	*routine_monitoring(void *arg)
+{
+	t_data	*data;
+	int		i;
+
+	data = (t_data *)arg;
+	usleep(100);
+	while (1)
+	{
+		i = 0;
+		while (i < data->num_philos)
+		{
+			if (check_death(data, i))
+			{
+				data->is_dead = 1;
+				return (NULL);
+			}
+			i++;
+		}
+		usleep(1000); // pour ne pas spam le cpu
+	}
 	return (NULL);
 }
 

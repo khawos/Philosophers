@@ -21,6 +21,7 @@ typedef struct	s_philo
 	pthread_t 		thread;
 	int				id;
 	int				num_philos;
+	struct timeval	last_meal;
 	size_t			time_to_die;		
 	size_t			time_to_eat;
 	size_t			time_to_sleep;

@@ -6,7 +6,7 @@
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 04:31:00 by amedenec          #+#    #+#             */
-/*   Updated: 2025/03/24 06:53:00 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/10 04:18:36 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		is_num(char	*str)
 			str++;
 			continue;
 		}
-		if (*str <= '0' || *str >= '9')
+		if (*str < '0' || *str > '9')
 			return (1);
 		str++;
 	}

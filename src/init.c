@@ -6,7 +6,7 @@
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 07:04:37 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/10 04:01:09 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/10 04:27:09 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	init(t_data *data, char **argv)
 	int	die;
 	int	eat;
 	int	sleep;
+	//struct timeval	now; // 6 variable a refacto
 
+	//gettimeofday(&now, NULL); // pour pas que le thread monitoring instant kill
 	d = 0;
 	i = ft_atoi(argv[1]);
 	die = ft_atoi(argv[2]);
@@ -34,6 +36,7 @@ void	init(t_data *data, char **argv)
 		data->philos[d].time_to_eat = eat;
 		data->philos[d].time_to_sleep = sleep;
 		data->philos[d++].data = data;
+		//data->philos[d++].last_meal = now;
 	}
 }
 
