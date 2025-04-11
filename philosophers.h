@@ -34,6 +34,7 @@ typedef struct	s_data
 	int				is_dead;
 	int				num_philos;
 	pthread_mutex_t	stdin_mutex;
+	pthread_mutex_t	mutex_check_last_meal;
 	pthread_mutex_t *forks;
 	t_philo			philos[MAX_PHILO];
 	t_monitoring	*monitoring;

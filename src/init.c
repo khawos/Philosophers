@@ -6,7 +6,7 @@
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 07:04:37 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/10 04:33:34 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/11 03:15:04 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	init_philo(t_data *data)
 		// TODO
 	}
 	pthread_mutex_init(&data->stdin_mutex, NULL);
+	pthread_mutex_init(&data->mutex_check_last_meal, NULL);
 	data->forks = malloc((sizeof(pthread_mutex_t)) * data->num_philos);
 	if (!data->forks)
 	{

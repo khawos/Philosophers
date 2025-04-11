@@ -6,7 +6,7 @@
 /*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 04:36:04 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/10 04:59:33 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/11 06:04:43 by amedenec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void	print_time(t_philo *philo)
 
 void	eat_philo(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->mutex_check_last_meal);
 	gettimeofday(&philo->last_meal, NULL);
-	usleep(philo->time_to_eat * 1000);
+	pthread_mutex_unlock(&philo->data->mutex_check_last_meal);
 	print_time(philo);
+	usleep(philo->time_to_eat * 1000);
 }
 
 void	*routine(void *philos)
@@ -66,8 +68,10 @@ int	check_death(t_data *data, int i)
 	size_t			elapsed;
 
 	gettimeofday(&now, NULL);
+	pthread_mutex_lock(&data->mutex_check_last_meal);
 	last = data->philos[i].last_meal.tv_sec * 1000
 		+ data->philos[i].last_meal.tv_usec / 1000;
+	pthread_mutex_unlock(&data->mutex_check_last_meal);
 	current = now.tv_sec * 1000 + now.tv_usec / 1000;
 	elapsed = current - last;
 	if (elapsed > data->philos[i].time_to_die)
@@ -97,7 +101,7 @@ void	*routine_monitoring(void *arg)
 			}
 			i++;
 		}
-		usleep(1000); // pour ne pas spam le cpu
+		usleep(1); // pour ne pas spam le cpu
 	}
 	return (NULL);
 }

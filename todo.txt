@@ -1,5 +1,1 @@
-enelver les nouveaux datarace, surment cause par le changement et la consultation de lastmeal.
-
-Faire en sort que les philos regarde si le flag de mort est a 1 avant de faire une action.
-
-
+Faire en sort que les philos regarde si le flag de mort est a 1 avant de print quelques choses. (ne pas oublier de check si les data races)
