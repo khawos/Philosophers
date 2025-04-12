@@ -61,6 +61,8 @@ int	check_flag_dead(t_philo *philo);
 
 // print_mili
 void	print_time_is_eating(t_philo *philo);
+void	print_time_is_sleeping(t_philo *philo);
+void	print_time_is_thinking(t_philo *philo);
 void	print_time_take_left_fork(t_philo *philo);
 void	print_time_take_right_fork(t_philo *philo);
 void	print_death(t_data *data, int id, long current);

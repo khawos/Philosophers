@@ -6,7 +6,7 @@
 /*   By: adam <adam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 04:36:04 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/12 04:50:02 by adam             ###   ########.fr       */
+/*   Updated: 2025/04/12 22:53:14 by adam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ void	eat_philo(t_philo *philo)
 	drop_forks(philo);
 }
 
+void	sleep_philo(t_philo *philo)
+{
+	print_time_is_sleeping(philo);
+	usleep(philo->time_to_sleep * 1000);
+}
 void	*routine(void *philos)
 {
 	t_philo *philo = NULL;
@@ -82,7 +87,8 @@ void	*routine(void *philos)
 	while (0 == check_flag_dead(philo))
 	{
 		eat_philo(philo);		
-		usleep(philo->time_to_sleep * 1000);
+		sleep_philo(philo);
+		print_time_is_thinking(philo);
 	}
 	return (NULL);
 }
