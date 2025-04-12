@@ -6,7 +6,7 @@
 /*   By: adam <adam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 04:36:04 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/13 00:05:45 by adam             ###   ########.fr       */
+/*   Updated: 2025/04/13 00:46:15 by adam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ void	take_forks(t_philo *philo)
 	if (left < right)
 	{
 		pthread_mutex_lock(&philo->data->forks[left]);
-		print_time_take_left_fork(philo);
+		print_time_take_fork(philo);
 		pthread_mutex_lock(&philo->data->forks[right]);
-		print_time_take_right_fork(philo);
+		print_time_take_fork(philo);
 	}
 	else
 	{
 		pthread_mutex_lock(&philo->data->forks[right]);
-		print_time_take_right_fork(philo);
+		print_time_take_fork(philo);
 		pthread_mutex_lock(&philo->data->forks[left]);
-		print_time_take_left_fork(philo);
+		print_time_take_fork(philo);
 	}
 }
 
@@ -67,14 +67,14 @@ void	eat_philo(t_philo *philo)
 	take_forks(philo);
 	set_last_meal(philo);
 	print_time_is_eating(philo);
-	usleep(philo->time_to_eat * 1000);
+	usleep_precise_ms(philo->time_to_eat);
 	drop_forks(philo);
 }
 
 void	sleep_philo(t_philo *philo)
 {
 	print_time_is_sleeping(philo);
-	usleep(philo->time_to_sleep * 1000);
+	usleep_precise_ms(philo->time_to_sleep);
 }
 void	*routine(void *philos)
 {
@@ -83,7 +83,7 @@ void	*routine(void *philos)
 	philo = (t_philo *)philos;
 	set_last_meal(philo);
 	if (philo->id % 2 == 1)
-		usleep(1000);
+		usleep_precise_ms(1);
 	while (0 == check_flag_dead(philo))
 	{
 		eat_philo(philo);		

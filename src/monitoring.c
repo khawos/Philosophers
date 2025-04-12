@@ -8,7 +8,7 @@ void	*routine_monitoring(void *arg)
 	int		i;
 
 	data = (t_data *)arg;
-	usleep(1000 * 10);
+	usleep_precise_ms(1);
 	while (1)
 	{
 		i = 0;
@@ -23,7 +23,7 @@ void	*routine_monitoring(void *arg)
 			}
 			i++;
 		}
-		usleep(1000); // pour ne pas spam le cpu
+		usleep_precise_ms(1); // pour ne pas spam le cpu
 	}
 	return (NULL);
 }
