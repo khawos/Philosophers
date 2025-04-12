@@ -6,7 +6,7 @@
 /*   By: adam <adam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 04:36:04 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/12 04:39:14 by adam             ###   ########.fr       */
+/*   Updated: 2025/04/12 04:50:02 by adam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	*routine(void *philos)
 	
 	philo = (t_philo *)philos;
 	set_last_meal(philo);
+	if (philo->id % 2 == 1)
+		usleep(1000);
 	while (0 == check_flag_dead(philo))
 	{
 		eat_philo(philo);		

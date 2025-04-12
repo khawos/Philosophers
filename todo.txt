@@ -1,1 +1,7 @@
-Faire en sort que les philos regarde si le flag de mort est a 1 avant de print quelques choses. (ne pas oublier de check si les data races)
+Dire quand il dort et quand il pense.
+Implementer le nombre max que tout les philos doivent manger avant d'arreter le programme.
+
+
+
+
+
