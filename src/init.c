@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amedenec <amedenec@student.42.fr>          +#+  +:+       +#+        */
+/*   By: adam <adam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 07:04:37 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/11 03:15:04 by amedenec         ###   ########.fr       */
+/*   Updated: 2025/04/12 02:25:37 by adam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init(t_data *data, char **argv)
 	die = ft_atoi(argv[2]);
 	eat = ft_atoi(argv[3]);
 	sleep = ft_atoi(argv[4]);
+	data->is_dead = 0;
 	while (d < i)
 	{
 		data->philos[d].id = d;
@@ -51,6 +52,7 @@ void	init_philo(t_data *data)
 	}
 	pthread_mutex_init(&data->stdin_mutex, NULL);
 	pthread_mutex_init(&data->mutex_check_last_meal, NULL);
+	pthread_mutex_init(&data->mutex_check_death, NULL);
 	data->forks = malloc((sizeof(pthread_mutex_t)) * data->num_philos);
 	if (!data->forks)
 	{
