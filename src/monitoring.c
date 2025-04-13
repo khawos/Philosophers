@@ -21,12 +21,15 @@ void	*routine_monitoring(void *arg)
 				pthread_mutex_unlock(&data->mutex_check_death);
 				return (NULL);
 			}
-			if (check_meal(data))
+			if (data->philos[0].argc == 6)
 			{
-				pthread_mutex_lock(&data->mutex_check_death);
-				data->is_dead = 1;
-				pthread_mutex_unlock(&data->mutex_check_death);
-				return (NULL);
+				if (check_meal(data))
+				{
+					pthread_mutex_lock(&data->mutex_check_death);
+					data->is_dead = 1;
+					pthread_mutex_unlock(&data->mutex_check_death);
+					return (NULL);
+				}
 			}
 			i++;
 		}

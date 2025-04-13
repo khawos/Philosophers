@@ -26,6 +26,7 @@ typedef struct	s_philo
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
 	size_t			num_of_meal;
+	int				argc;
 	t_data			*data;
 }	t_philo;
 
@@ -46,7 +47,7 @@ typedef struct	s_data
 
 // main
 int		parsing(t_data *data, char **argv);
-void	init(t_data *data, char **argv);
+void	init(t_data *data, char **argv, int argc);
 void	init_philo(t_data *data);
 void	start_run(t_data *data);
 void	print_death(t_data *data, int id, long current);

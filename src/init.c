@@ -6,29 +6,37 @@
 /*   By: adam <adam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 07:04:37 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/13 04:42:31 by adam             ###   ########.fr       */
+/*   Updated: 2025/04/13 07:16:42 by adam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	init(t_data *data, char **argv)
+void	init2(t_data *data, char **argv, int argc)
+{
+	int	max_meal;
+	
+	data->is_dead = 0;
+	if (argc == 6)
+	{
+		max_meal = ft_atoi(argv[5]);
+		data->max_meal = max_meal;
+	}
+}
+
+void	init(t_data *data, char **argv, int argc)
 {
 	int	i;
 	int	d;
 	int	die;
 	int	eat;
 	int	sleep;
-	int	max_meal;
 
 	d = 0;
 	i = ft_atoi(argv[1]);
 	die = ft_atoi(argv[2]);
 	eat = ft_atoi(argv[3]);
 	sleep = ft_atoi(argv[4]);
-	max_meal = ft_atoi(argv[5]);
-	data->is_dead = 0;
-	data->max_meal = max_meal;
 	while (d < i)
 	{
 		data->philos[d].id = d;
@@ -38,8 +46,10 @@ void	init(t_data *data, char **argv)
 		data->philos[d].time_to_eat = eat;
 		data->philos[d].time_to_sleep = sleep;
 		data->philos[d].data = data;
-		data->philos[d++].num_of_meal = 0;
+		data->philos[d].num_of_meal = 0;
+		data->philos[d++].argc = argc;
 	}
+	init2(data ,argv, argc);
 }
 
 void	init_philo(t_data *data)
