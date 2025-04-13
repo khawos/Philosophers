@@ -6,7 +6,7 @@
 /*   By: adam <adam@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/23 04:36:04 by amedenec          #+#    #+#             */
-/*   Updated: 2025/04/13 00:46:15 by adam             ###   ########.fr       */
+/*   Updated: 2025/04/13 04:43:39 by adam             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ void	eat_philo(t_philo *philo)
 	set_last_meal(philo);
 	print_time_is_eating(philo);
 	usleep_precise_ms(philo->time_to_eat);
+	pthread_mutex_lock(&philo->data->mutex_num_meal);
+	philo->num_of_meal++;
+	pthread_mutex_unlock(&philo->data->mutex_num_meal);
 	drop_forks(philo);
 }
 
@@ -78,15 +81,16 @@ void	sleep_philo(t_philo *philo)
 }
 void	*routine(void *philos)
 {
-	t_philo *philo = NULL;
+	t_philo *philo;
 	
+	philo = NULL;
 	philo = (t_philo *)philos;
 	set_last_meal(philo);
 	if (philo->id % 2 == 1)
 		usleep_precise_ms(1);
 	while (0 == check_flag_dead(philo))
 	{
-		eat_philo(philo);		
+		eat_philo(philo);
 		sleep_philo(philo);
 		print_time_is_thinking(philo);
 	}

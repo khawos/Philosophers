@@ -21,6 +21,13 @@ void	*routine_monitoring(void *arg)
 				pthread_mutex_unlock(&data->mutex_check_death);
 				return (NULL);
 			}
+			if (check_meal(data))
+			{
+				pthread_mutex_lock(&data->mutex_check_death);
+				data->is_dead = 1;
+				pthread_mutex_unlock(&data->mutex_check_death);
+				return (NULL);
+			}
 			i++;
 		}
 		usleep_precise_ms(1); // pour ne pas spam le cpu
@@ -48,4 +55,26 @@ int	check_death(t_data *data, int i)
 		return (1);
 	}
 	return (0);
+}
+
+int	check_meal(t_data *data)
+{
+	int	i;
+	size_t	goal;
+
+	goal = 0;
+	i = 0;
+	while (i < data->num_philos)
+	{
+		pthread_mutex_lock(&data->mutex_num_meal);
+		if (data->philos[i].num_of_meal >= data->max_meal)
+			goal++;
+		pthread_mutex_unlock(&data->mutex_num_meal);
+		
+		i++;
+	}
+	if (goal >= (size_t)data->num_philos)
+		return (1);
+	return (0);
+
 }

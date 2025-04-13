@@ -25,6 +25,7 @@ typedef struct	s_philo
 	size_t			time_to_die;		
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
+	size_t			num_of_meal;
 	t_data			*data;
 }	t_philo;
 
@@ -33,8 +34,10 @@ typedef struct	s_data
 	struct timeval	start_time; // ATTENTION
 	int				is_dead;
 	int				num_philos;
+	size_t				max_meal;
 	pthread_mutex_t	stdin_mutex;
 	pthread_mutex_t	mutex_check_last_meal;
+	pthread_mutex_t	mutex_num_meal;
 	pthread_mutex_t	mutex_check_death;
 	pthread_mutex_t *forks;
 	t_philo			philos[MAX_PHILO];
@@ -55,6 +58,7 @@ int		ft_atoi(const char *str);
 
 void	*routine_monitoring(void *arg);
 //int		check_death(t_data *data, int i);
+int	check_meal(t_data *data);
 
 // start_run
 int	check_flag_dead(t_philo *philo);
